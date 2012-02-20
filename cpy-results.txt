@@ -1,0 +1,57 @@
+pypy	name	host	conc	rep	reqs_per_sec	rs.min	rs.mean	rs.std	rs.median	rs.max
+False	cyclone	cyclone	4	1	1172.89	2	3	1.1	3	19
+False	cyclone	cyclone	4	2	1163.75	2	3	1.1	3	21
+False	tornado	tornado	4	1	1095.46	0	4	1.9	3	25
+False	tornado	tornado	4	2	1105.49	1	4	1.7	3	17
+False	bottle	gevent	4	1	1348.82	1	3	1.0	3	20
+False	bottle	gevent	4	2	1360.58	1	3	0.9	3	14
+False	bottle	paste	4	1	311.02	1	13	19.1	5	168
+False	bottle	paste	4	2	174.97	1	23	25.6	7	180
+False	bottle	rocket	4	1	791.85	1	5	2.6	4	35
+False	bottle	rocket	4	2	801.85	1	5	2.6	4	30
+False	flask	gevent	4	1	636.65	1	6	57.3	4	2867
+False	flask	gevent	4	2	732.47	1	5	3.8	5	27
+False	flask	tornado	4	1	769.8	1	5	2.3	4	22
+False	flask	tornado	4	2	728.13	1	5	2.5	5	24
+False	cyclone	cyclone	16	1	1346.74	5	12	2.5	11	28
+False	cyclone	cyclone	16	2	1326.32	4	12	2.7	11	33
+False	tornado	tornado	16	1	1199.35	2	13	4.8	14	40
+False	tornado	tornado	16	2	1193.35	2	13	5.0	14	44
+False	bottle	gevent	16	1	1397.65	2	11	2.6	11	34
+False	bottle	gevent	16	2	1412.01	1	11	2.3	11	29
+False	bottle	paste	16	1	316.48	1	50	197.0	9	9136
+False	bottle	paste	16	2	264.36	1	58	164.0	10	3441
+False	bottle	rocket	16	1	806.92	4	20	17.1	18	358
+False	bottle	rocket	16	2	437.07	3	37	57.5	18	440
+False	flask	gevent	16	1	751.88	1	21	14.1	19	78
+False	flask	gevent	16	2	761.59	1	21	13.7	19	81
+False	flask	tornado	16	1	866.41	2	18	7.4	16	49
+False	flask	tornado	16	2	791.4	2	20	7.3	18	48
+False	cyclone	cyclone	64	1	1433.83	18	44	95.3	41	3052
+False	cyclone	cyclone	64	2	1409.85	11	45	7.2	45	80
+False	tornado	tornado	64	1	1304.31	13	49	17.4	47	122
+False	tornado	tornado	64	2	1327.94	11	48	17.1	46	119
+False	bottle	gevent	64	1	1378.11	6	46	7.9	46	79
+False	bottle	gevent	64	2	1456.47	2	44	7.8	44	80
+False	bottle	paste	64	1						
+False	bottle	paste	64	2						
+False	bottle	rocket	64	1	170.29	41	376	325.4	89	994
+False	bottle	rocket	64	2	848.5	21	75	10.2	78	104
+False	flask	gevent	64	1	697.07	2	91	55.8	88	278
+False	flask	gevent	64	2	713.87	2	89	55.2	85	261
+False	flask	tornado	64	1	810.29	15	79	19.8	75	178
+False	flask	tornado	64	2	819.16	5	78	17.8	77	140
+False	cyclone	cyclone	256	1	259.96	56	320	2547.9	86	38459
+False	cyclone	cyclone	256	2						
+False	tornado	tornado	256	1	1217.42	22	180	479.2	102	3603
+False	tornado	tornado	256	2	1203.7	20	173	444.5	104	3201
+False	bottle	gevent	256	1	1283.11	38	197	255.4	180	3245
+False	bottle	gevent	256	2	1298.77	22	196	367.5	152	3223
+False	bottle	paste	256	1						
+False	bottle	paste	256	2						
+False	bottle	rocket	256	1	159.52	125	1601	1273.6	1466	3223
+False	bottle	rocket	256	2	670.3	18	378	399.3	317	3053
+False	flask	gevent	256	1	679.29	10	331	849.5	187	9770
+False	flask	gevent	256	2	724.72	7	320	770.6	175	10514
+False	flask	tornado	256	1	820.55	23	253	570.5	157	9174
+False	flask	tornado	256	2	820.38	10	254	669.0	161	9168
