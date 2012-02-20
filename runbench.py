@@ -4,8 +4,8 @@ import subprocess
 import time
 import re
 
-GETS = 1000
-concurrencies = [10]#,100,1000]
+GETS = 10000
+concurrencies = [(4 ** x) for x in (1,2,3,4)]
 REPS = [1,2]
 
 is_pypy = hasattr(sys, 'pypy_version_info')
