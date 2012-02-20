@@ -6,15 +6,21 @@ import re
 
 GETS = 1000
 concurrencies = [10]#,100,1000]
+REPS = [1,2]
 
+is_pypy = hasattr(sys, 'pypy_version_info')
+gevent = [] if is_pypy else ['gevent']
 
 def servers():
-    yield 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
-    yield 'tornado', subprocess.Popen('python servers/torn.py'.split())
-    yield 'flask:tornado', subprocess.Popen('python servers/fla.py'.split())
+    yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
+    yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
 
-    for host in ['tornado', 'paste', 'rocket']: #excluded wsgiref twisted
-        yield 'bottle:%s' % host, subprocess.Popen(('python servers/bot.py %s' % host).split())
+    for host in gevent + ['tornado', 'paste', 'rocket']: #excluded wsgiref twisted
+        yield 'bottle', host, subprocess.Popen(('python servers/bot.py %s' % host).split())
+
+    for host in gevent + ['tornado']: #excluded wsgiref twisted
+        yield 'flask', host, subprocess.Popen(('python servers/fla.py %s' % host).split())
+
 
 
 def metrics(result):
@@ -32,7 +38,7 @@ def metrics(result):
     return mets
 
 
-headers = 'name conc reqs_per_sec rs.min rs.mean rs.std rs.median rs.max'.split()
+headers = 'pypy name host conc rep reqs_per_sec rs.min rs.mean rs.std rs.median rs.max'.split()
 
 out = csv.writer(file('results.txt', 'w'), delimiter='\t')
 out.writerow(headers)
@@ -42,19 +48,22 @@ def write_result(setup, result):
 
 for conc in concurrencies:
 
-    for name, server in servers():
-        print 'testing %(name)s at concurrency %(conc)s' % locals()
+    for name, host, server in servers():
+        print 'testing %(name)s, %(host)s at concurrency %(conc)s' % locals()
         time.sleep(1)
         try:
-            command = 'ab -n %(GETS)s -c %(conc)s http://localhost:8000/' % locals()
-            ab = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-            ab.wait()
-            result = ab.stdout.read()
-            if ab.returncode == 0:
-                write_result([name, conc], metrics(result))
-            else:
-                write_result([name, conc], dict([(x,'') for x in headers]))
+            for rep in REPS:
+
+
+                command = 'ab -n %(GETS)s -c %(conc)s http://localhost:8000/' % locals()
+                ab = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+                ab.wait()
+                result = ab.stdout.read()
+                if ab.returncode == 0:
+                    write_result([is_pypy, name, host, conc, rep], metrics(result))
+                else:
+                    write_result([is_pypy, name, host, conc, rep], dict([(x,'') for x in headers]))
         finally:
             server.terminate()
-
+            server.wait()
 

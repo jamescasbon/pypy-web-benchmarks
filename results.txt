@@ -1,8 +1,13 @@
-name	conc	reqs_per_sec	rs.min	rs.mean	rs.std	rs.median	rs.max
-cyclone	10	424.27	7	23	18.1	16	119
-tornado	10	418.05	10	24	9.1	22	71
-flask:tornado	10	362.41	12	27	11.3	25	80
-bottle:tornado	10	437.57	7	23	11.2	21	81
-bottle:paste	10	226.43	2	40	142.2	26	3029
-bottle:twisted	10						
-bottle:rocket	10	309.83	4	32	13.7	31	86
+pypy	name	host	conc	rep	reqs_per_sec	rs.min	rs.mean	rs.std	rs.median	rs.max
+True	cyclone	cyclone	10	1	410.65	8	24	16.5	18	98
+True	cyclone	cyclone	10	2	800.35	4	12	9.9	9	57
+True	tornado	tornado	10	1	544.4	4	18	9.5	15	82
+True	tornado	tornado	10	2	661.71	1	15	10.7	11	75
+True	bottle	tornado	10	1	525.91	5	19	11.6	16	89
+True	bottle	tornado	10	2	717.98	2	14	11.4	10	76
+True	bottle	paste	10	1	336.09	1	24	46.4	17	1037
+True	bottle	paste	10	2	450.58	2	17	34.7	11	460
+True	bottle	rocket	10	1	375.14	2	26	13.2	24	89
+True	bottle	rocket	10	2	545.94	1	18	11.6	15	83
+True	flask	tornado	10	1	427.91	12	23	10.2	20	80
+True	flask	tornado	10	2	480.94	9	21	12.9	16	75
