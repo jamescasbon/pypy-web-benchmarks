@@ -3,6 +3,9 @@ from setuptools import setup
 setup(
         name='webbench',
         version='0.0.1',
-        requires=['tornado', 'twisted', 'cyclone'],
+        install_requires=['tornado', 'twisted', 'cyclone',
+            'flask', 'bottle', 'bottle-redis', 'redis',
+            'rocket'
+            ],
 )
 
