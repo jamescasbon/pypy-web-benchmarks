@@ -6,7 +6,7 @@ import re
 
 GETS = 10000
 concurrencies = [(4 ** x) for x in (1,2,3,4)]
-REPS = [1]
+REPS = [1,2,3]
 
 is_pypy = hasattr(sys, 'pypy_version_info')
 gevent = [] if is_pypy else ['gevent']
