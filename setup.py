@@ -1,3 +1,16 @@
+"""
+It's almost impossible to get an install that works automatically for this test.
+However, this gets you pretty fat
+
+Ad-hoc customisations: 
+
+ * bottle-redis needs a connection pool (see my pull request #11) 
+ * bottle.py patched to supress gevent's wsgi server logging 
+ * pypy needs to disable twisted's extensions when installing
+
+gevent should be 1.0 beta. 
+
+"""
 from setuptools import setup
 import sys
 

@@ -1,3 +1,10 @@
+"""
+Benchmark python web servers
+
+run each server in ./servers and call ab a number of times, writing results to results.txt
+"""
+
+
 import sys
 import csv
 import subprocess
