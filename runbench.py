@@ -19,15 +19,15 @@ is_pypy = hasattr(sys, 'pypy_version_info')
 gevent = [] if is_pypy else ['gevent']
 
 def servers():
-    #yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
-    #yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
+    yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
+    yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
 	
 
-    #for host in gevent + ['twisted', 'tornado', 'paste', 'rocket']: #excluded wsgiref twisted
-    #    yield 'bottle', host, subprocess.Popen(('python servers/bot.py %s' % host).split())
+    for host in gevent + ['twisted', 'tornado', 'paste', 'rocket']: #excluded wsgiref twisted
+        yield 'bottle', host, subprocess.Popen(('python servers/bot.py %s' % host).split())
 
-    for host in gevent + ['tornado']: #excluded wsgiref twisted
-        #yield 'flask', host, subprocess.Popen(('python servers/fla.py %s' % host).split())
+    for host in gevent + ['tornado']:
+        yield 'flask', host, subprocess.Popen(('python servers/fla.py %s' % host).split())
 	yield 'pyramid', host, subprocess.Popen(('python servers/pyr.py %s' % host).split())
 
 
@@ -59,7 +59,7 @@ for conc in concurrencies:
 
     for name, host, server in servers():
         print 'testing %(name)s, %(host)s at concurrency %(conc)s' % locals()
-        time.sleep(1)
+        time.sleep(2)
         try:
             for rep in REPS:
 
