@@ -5,10 +5,17 @@ from pyramid.response import Response
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
+import redis
+
+redisdb = redis.ConnectionPool(host='localhost')
 
 
 def hello_world(request):
-   return Response('Hello world!')
+   db = redis.Redis(connection_pool=redisdb)
+   x = db.incr('counter')
+   p = db.get('page')
+
+   return Response('Hello world! %s\n %s' %(x,p))
 
 if len(sys.argv) < 2:
     server = 'tornado'
