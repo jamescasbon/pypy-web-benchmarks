@@ -6,7 +6,7 @@ import re
 
 GETS = 10000
 concurrencies = [(4 ** x) for x in (1,2,3,4)]
-REPS = [1,2]
+REPS = [1]
 
 is_pypy = hasattr(sys, 'pypy_version_info')
 gevent = [] if is_pypy else ['gevent']
@@ -15,7 +15,7 @@ def servers():
     yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
     yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
 
-    for host in gevent + ['tornado', 'paste', 'rocket']: #excluded wsgiref twisted
+    for host in gevent + ['twisted', 'tornado', 'paste', 'rocket']: #excluded wsgiref twisted
         yield 'bottle', host, subprocess.Popen(('python servers/bot.py %s' % host).split())
 
     for host in gevent + ['tornado']: #excluded wsgiref twisted
