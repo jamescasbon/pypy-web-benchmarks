@@ -55,7 +55,7 @@ for conc in concurrencies:
             for rep in REPS:
 
 
-                command = 'ab -n %(GETS)s -c %(conc)s http://localhost:8000/' % locals()
+                command = 'ab -n %(GETS)s -c %(conc)s http://127.0.0.1:8000/' % locals()
                 ab = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
                 ab.wait()
                 result = ab.stdout.read()
