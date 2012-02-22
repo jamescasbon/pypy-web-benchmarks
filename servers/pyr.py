@@ -23,10 +23,12 @@ else:
     server = sys.argv[1]
 
 
+config = Configurator()
+config.add_view(hello_world)
+app = config.make_wsgi_app()
+
+
 if __name__ == '__main__':
-    config = Configurator()
-    config.add_view(hello_world)
-    app = config.make_wsgi_app()
 
     if server == 'gevent':
         from gevent.wsgi import WSGIServer

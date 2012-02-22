@@ -20,6 +20,7 @@ def stream(rdb):
     yield 'hello world! %s\n' % x
     yield p
 
-run(app, host='0.0.0.0', port=8000, server=server, quiet=True)
+if __name__ == '__main__': 
+    run(app, host='0.0.0.0', port=8000, server=server, quiet=True)
 
 

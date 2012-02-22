@@ -11,25 +11,26 @@ import subprocess
 import time
 import re
 
-GETS = 10000
-concurrencies = [(4 ** x) for x in (1,2,3,4)]
-REPS = [1,2,3]
+GETS = 1000
+concurrencies = [(4 ** x) for x in (1,)]
+REPS = [1,2]
 
 is_pypy = hasattr(sys, 'pypy_version_info')
 gevent = [] if is_pypy else ['gevent']
 
+wsgis = ['tornado',  'rocket', 'cherrypy', 'twisted', 'paste', 'eventlet']
+
+if not is_pypy:
+    wsgis.append('gevent')
+
+
 def servers():
-    yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
-    yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
-	
+    #yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
+    #yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
 
-    for host in gevent + ['twisted', 'tornado', 'paste', 'rocket']: #excluded wsgiref twisted
-        yield 'bottle', host, subprocess.Popen(('python servers/bot.py %s' % host).split())
-
-    for host in gevent + ['tornado']:
-        yield 'flask', host, subprocess.Popen(('python servers/fla.py %s' % host).split())
-	yield 'pyramid', host, subprocess.Popen(('python servers/pyr.py %s' % host).split())
-
+    for app in ['bottle', 'pyramid', 'flask']:
+        for host in wsgis:
+            yield app, host, subprocess.Popen(('python runwsgi.py %s %s' % (host, app)).split())
 
 
 def metrics(result):
