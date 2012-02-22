@@ -11,22 +11,22 @@ import subprocess
 import time
 import re
 
-GETS = 1000
-concurrencies = [(4 ** x) for x in (1,)]
-REPS = [1,2]
+GETS = 10000
+concurrencies = [(4 ** x) for x in (1,2,3,4)]
+REPS = [1,2,3]
 
 is_pypy = hasattr(sys, 'pypy_version_info')
 gevent = [] if is_pypy else ['gevent']
 
-wsgis = ['tornado',  'rocket', 'cherrypy', 'twisted', 'paste', 'eventlet']
+wsgis = ['tornado',  'rocket', 'cherrypy', 'twisted', 'paste']
 
 if not is_pypy:
     wsgis.append('gevent')
 
 
 def servers():
-    #yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
-    #yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
+    yield 'cyclone', 'cyclone', subprocess.Popen('python servers/cyc.py'.split())
+    yield 'tornado', 'tornado', subprocess.Popen('python servers/torn.py'.split())
 
     for app in ['bottle', 'pyramid', 'flask']:
         for host in wsgis:
@@ -59,12 +59,10 @@ def write_result(setup, result):
 for conc in concurrencies:
 
     for name, host, server in servers():
-        print 'testing %(name)s, %(host)s at concurrency %(conc)s' % locals()
         time.sleep(2)
+        print 'testing %(name)s, %(host)s at concurrency %(conc)s' % locals()
         try:
             for rep in REPS:
-
-
                 command = 'ab -n %(GETS)s -c %(conc)s http://127.0.0.1:8000/' % locals()
                 ab = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
                 ab.wait()
@@ -76,4 +74,5 @@ for conc in concurrencies:
         finally:
             server.terminate()
             server.wait()
+            time.sleep(3)
 

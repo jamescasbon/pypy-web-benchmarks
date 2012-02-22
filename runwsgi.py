@@ -31,7 +31,7 @@ if __name__ == "__main__":
     elif server == 'eventlet':
         from eventlet import wsgi
         import eventlet
-        wsgi.server(eventlet.listen(('', PORT), backlog=500), app, log=file('/dev/null', 'w'))
+        wsgi.server(eventlet.listen(('127.0.0.1', PORT), backlog=500), app, log=file('/dev/null', 'w'))
 
     elif server == 'cherrypy':
         from cherrypy import wsgiserver
