@@ -16,12 +16,12 @@ concurrencies = [(4 ** x) for x in (1,2,3,4)]
 REPS = [1,2,3]
 
 is_pypy = hasattr(sys, 'pypy_version_info')
-gevent = [] if is_pypy else ['gevent']
 
 wsgis = ['tornado',  'rocket', 'cherrypy', 'twisted', 'paste']
 
 if not is_pypy:
     wsgis.append('gevent')
+    wsgis.append('eventlet')
 
 
 def servers():
